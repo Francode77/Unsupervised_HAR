@@ -4,9 +4,7 @@ This project aims to recognise patterns in timeseries data from a pair of moveme
 
 We start with timeseries data from pairs of gyrscope and accelerometer sensors. By detecting signal shifts in the data we can obtain recogniseable patterns in segmented timeseries data. Then we use the TSFResh automated feature extraction library on all signals in each of these segments to cluster these patterns.
 
-For data segmentation we use a seperate dataset with labeled movements. The challenge here is that these movements have only a small similarity to the unlabeled data, which was obtained from live usage.
-
-The model is completely trained on unlabeled data, making this an unsupervised learning project
+The model is then trained on unlabeled data, making this an unsupervised learning project. The final goal is to obtain clusters which can be identified as a specific human activity movement.
 
 ## Installation
 
@@ -57,18 +55,23 @@ This step involves splitting the available timeseries data (12 signals) into seg
 
 #### **A. Segmentation**
 
-By running the file 'segmentation_labeled.ipynb' we can create segments in the timeseries data by detecting changepoints.For this I use the ruptures library. This library detects shifts in a signal and creates a so-called changepoint.
+For data segmentation we use a seperate dataset with labeled movements. The challenge here is that these movements have only a small similarity to the unlabeled data, which was obtained from live usage.
 
-To determine the sensitivity of this detection on the *unlabeled data*, we empirically apply different treshold settings on different the signals in the *labeled data*.
+By running the file 'segmentation_labeled.ipynb' we start creating segments (frames) from the *labeled* timeseries data by detecting so-called changepoints. For this I use the ruptures library.
+
+To determine the sensitivity of this detection on the *unlabeled data*, we empirically apply different treshold settings for different (sets of) signals in the *labeled data*.
 
 For example, we split the data according to signal shifts in the x axis of accelerometer 1 with treshold 1. We do the same for the y axis of accelerometer 2 with a different treshold, and so on...
 
-This can be seen here: the background colours represent different labels, and the changepoints are marked as red vertical lines.
+In the next image, the background colours represent different labels, and the changepoints are marked as red vertical lines.
+
 ![image](/assets/segmentation_1_signal.png)
 
 We do this for another batch of 3 signals in the same timeseries.
 
 ![image](/assets/segmentation_3_signal.png)
+
+Finally we add each changepoint and apply it on the timeseries data with all the signals.
 
 Through empirical method we obtained treshold values that are satisfying for the scope of the project. To reduce the number of resulting frames we remove changepoints that are too close to eachother and replace them with their mean datapoint. 
 
@@ -76,15 +79,15 @@ Our aim is that the segments are more or less visibly correlated to the provided
 
 ![image](/assets/segmentation_12_signals.png)
 
-The original timeseries data has now been split into segments. They all contain 14 signals which we want to label in clusters. 
+The original timeseries data has now been split into a number of frames that more or less correlate with the labels.
 
 **Labeled data**
 
-Now we need to apply the methodd on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
+Now we need to apply this method on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
 
 ![image](/assets/changepoints_unlabeled_1.png)
 
-The processing of the unlabeled ata in the above image resulted in 9 frames
+The processing of the unlabeled data in the above image results in 9 frames
 
 ![image](/assets/frame_unlabeled_1.png)
 
@@ -100,7 +103,7 @@ The total number of signals is 14. Using all signals approach and seems exhausti
 
 Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a big vector with 783 (extracted features) for 14 (signals), which results in 783*14 dimensions per frame. As mentioned, this process could be greatly improved by selecting only the more relevant features. This would reduce the dimensionality and processing time and might improve .
 
-By running the file `feature_extraction_RUN.ipynb' we extract the features from all the available timeseries data in one go.
+By running the file `feature_extraction_RUN.ipynb` we extract the features from all the available timeseries data in one go.
 
 ### 4. **Clustering**
 A clustering model is applied to a selection of the features from each of the frames
@@ -116,7 +119,8 @@ The project resulted in a n-dimensional model, with a pre-determined number of 1
 Then we can validate our model by printing frames which are identified to be in a cluster
 
 ### 5. **Validation**
-> We plot the newly found clusters to validate similarities in the patterns.
+
+We plot the newly found clusters to validate similarities in the patterns. In the notebook we print out the first 3 frames that were labeled as cluster 4.
  
 ## Limitations
 
