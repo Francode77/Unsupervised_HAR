@@ -35,6 +35,7 @@ For splitting the timeseries into different segments we use a seperate dataset w
 3. To process all files in a folder : <br>
 `feature_extraction_RUN.ipynb` <br>
 <br>
+
 ### /clustering
 
 4. To run the clustering and visual validation :<br>
