@@ -57,43 +57,48 @@ This step involves splitting the available timeseries data (12 signals) into seg
 
 **A. Segmentation**
 
-We detect signal shifts (changepoints) from the preprocessed signals and split our timeseries into frames. For this I use the ruptures library.
+By running the file 'segmentation_labeled.ipynb' we can create segments in the timeseries data by detecting changepoints.For this I use the ruptures library. This library detects shifts in a signal and creates a so-called changepoint.
 
-A demonstration of this can be seen in the notebook file `segmentation.ipynb` 
-To determine the sensitivity of the changepoint detection on the unlabeled data, we empirically apply different settings on the signals from the labeled data.
+To determine the sensitivity of this detection on the *unlabeled data*, we empirically apply different treshold settings on different the signals in the *labeled data*.
 
 For example, we split the data according to signal shifts in the x axis of accelerometer 1 with treshold 1. We do the same for the y axis of accelerometer 2 with a different treshold, and so on...
 
 This can be seen here: the background colours represent different labels, and the changepoints are marked as red vertical lines.
 ![image](/assets/segmentation_1_signal.png)
 
-By running the file 'segmentation_labeled.ipynb' we can make frames by detecting changepoints and extract features from all the available timeseries in one go.
+We do this for another batch of 3 signals in the same timeseries.
 
-The result is a segmenation that results from seperatly processing all signals. Through empirical method we obtained treshold values that are satisfying for the scope of the project. This means that the segments are more or less visibly correlated to the provided labels. 
+![image](/assets/segmentation_3_signal.png)
 
-![image](/assets/segmentation_3_signals.png)
- 
-The resulting frames have now 14 signals which we need to identify in clusters. The alpha and beta values are extra calculated measurements that were also provided by the client.
+Through empirical method we obtained treshold values that are satisfying for the scope of the project. To reduce the number of resulting frames we remove changepoints that are too close to eachother and replace them with their mean datapoint. 
+
+Our aim is that the segments are more or less visibly correlated to the provided labels, as we can see in the resulting image.
 
 ![image](/assets/segmentation_12_signals.png)
 
+The original timeseries data has now been split into segments. They all contain 14 signals which we want to label in clusters. 
 
-**B. Feature extraction**
-By using tsfresh we can extract the features of each frame that is detected in the unlabeled data.
 
-Ideally we would do this process on unlabeled and labeled data, but within the scope of this project, we will now detect the changepoints for segmentation on the unlabeled data by using tresholds (sensitivity) values as were obtained from the preprocessing phase.
+Now we need to apply the methodd on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
 
 ![image](/assets/changepoints_unlabeled_1.png)
 
-The processing in the above image resulted in 9 frames
+The processing of the unlabeled ata in the above image resulted in 9 frames
 
 ![image](/assets/frame_unlabeled_1.png)
 
-In this image of the first frame we can see 6 signals and the two calculated signals. The total number of signals is thus 14. We will use all of these to extract features. This method is a first approach and seems exhaustive, but the intention is to later figure out a more fine tuned approach.
+In this image of the first frame we plotted 6 signals and two calculated signals. 
 
-Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a big vector with 783 x 14 dimensions. As mentioned, this process could be greatly improved by selecting only the more relevant features. This would ofcourse reduce the dimensionality and the processing time.
+*(The alpha and beta values are extra calculated measurements that were also provided by the client. We ignore the alpha-beta signal.)*
 
-By running the file `feature_extraction_RUN.ipynb' we can now extract features from all the available timeseries in one go.
+**B. Feature extraction**
+By using tsfresh we will extract the features of all signals in each frame that was segmented from the unlabeled data.
+ 
+The total number of signals is 14. Using all signals approach and seems exhaustive, but the intention is to later figure out a more fine-tuned method.
+
+Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a big vector with 783 (extracted features) for 14 (signals), which results in 783*14 dimensions per frame. As mentioned, this process could be greatly improved by selecting only the more relevant features. This would reduce the dimensionality and processing time and might improve .
+
+By running the file `feature_extraction_RUN.ipynb' we extract the features from all the available timeseries data in one go.
 
 4. **Clustering**
 A clustering model is applied to a selection of the features from each of the frames
@@ -118,9 +123,10 @@ Then we can validate our model by printing frames which are identified to be in 
 - Feature extraction with TSFRESH is done without selecting the most relevant features. 
 - Segmentation takes a long time because we use different tresholds for different signals.
 
-    Both of these could be improved by fine tuning the method by selecting the most relevant signals and extracted features. 
+2. A better understanding of the correlation between the signals could greatly improve the models performance.
 
-2. Determining the number of dimensions before clustering is experimental. This is because we have used many features and many signals. A better understanding of the correlation between the signals could greatly improve the models performance.
+3. Determining the number of frames, features before clustering is an experimental method. 
 
+4. Dimension reduction could be obtained by not using all features and all signals. 
 
  
