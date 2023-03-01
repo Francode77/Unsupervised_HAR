@@ -2,7 +2,7 @@
 
 This project aims to recognise patterns in timeseries data from a pair of movement sensors on the body. 
 
-We start with timeseries data from pairs of gyrscope and accelerometer sensors. By detecting signal shifts in the data we can obtain recogniseable patterns in segmented timeseries data. Then we use the TSFResh automated feature extraction library on all signals in each of these segments to cluster these patterns.
+We start with timeseries data from pairs of gyrscope and accelerometer sensors. By detecting signal shifts in the data we can obtain recogniseable patterns in segmented timeseries data. Then we use the Tsfresh automated feature extraction library on all signals in each of these segments to cluster these patterns.
 
 The model is then trained on unlabeled data, making this an unsupervised learning project. The final goal is to obtain clusters which can be identified as a specific human activity movement.
 
@@ -22,8 +22,6 @@ The project is split into different folders and Jupyter notebook files.<br>
 `read_signal.ipynb` is used to plot the timeseries.<br>
 
 ### /processing
-
-For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals.
 
 1. To fine tune tresholds for changepoint detection we use the provided labeled data:<br>
 `segmentation_labeled.ipynb`
@@ -52,9 +50,11 @@ This step involves splitting the available timeseries data (12 signals) into seg
 
 #### **A. Segmentation**
 
-For data segmentation we use a seperate dataset with labeled movements. The challenge here is that these movements have only a small similarity to the unlabeled data, which was obtained from live usage.
+**Step 1 - Tuning on labeled data**
 
-By running the file 'segmentation_labeled.ipynb' we start creating segments (frames) from the *labeled* timeseries data by detecting so-called changepoints. For this I use the ruptures library.
+For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals. The challenge here is that these movements have only a small similarity to the unlabeled data, which was obtained from live usage.
+
+By running the file `segmentation_labeled.ipynb` we can create segments (frames) from the *labeled* timeseries data by detecting so-called changepoints in the signals. For this I use the ruptures library.
 
 To determine the sensitivity of this detection on the *unlabeled data*, we empirically apply different treshold settings for different (sets of) signals in the *labeled data*.
 
@@ -76,9 +76,9 @@ Our aim is that the segments are more or less visibly correlated to the provided
 
 ![image](/assets/segmentation_12_signals.png)
 
-The original timeseries data has now been split into a number of frames that more or less correlate with the labels.
+The original timeseries data has now been split into a number of frames that more or less correlate with the labels. We can now use this method and apply the respective tresholds on the unlabeled data.
 
-**Labeled data**
+**Step 2 - Applying on unlabeled data**
 
 Now we need to apply this method on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
 
