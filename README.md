@@ -71,7 +71,7 @@ By running the file 'segmentation_labeled.ipynb' we can make frames by detecting
 
 The result is a segmenation that results from seperatly processing all signals. Through empirical method we obtained treshold values that are satisfying for the scope of the project. This means that the segments are more or less visibly correlated to the provided labels. 
 
-![image](/assets/segmentation_12_signals.png)
+![image](/assets/segmentation_3_signals.png)
  
 The resulting frames have now 14 signals which we need to identify in clusters. The alpha and beta values are extra calculated measurements that were also provided by the client.
 
