@@ -46,16 +46,16 @@ For splitting the timeseries into different segments we use a seperate dataset w
  
 ## Method
 
-1. **Analysis**
+### 1. **Analysis**
 We plot the x,y,z axes of the sensor data. For each timeseries we have data for 3 (axes) x2 (sensors) x 2 (devices) = 12 signals
 
-2. **Preprocessing**
+### 2. **Preprocessing**
 Each timeseries is downsampled, normalised and processed with HAAR filter.
 
-3. **Processing**
+### 3. **Processing**
 This step involves splitting the available timeseries data (12 signals) into segments with the ruptures library, and then extracting features of these signals with tsfresh.
 
-**A. Segmentation**
+#### **A. Segmentation**
 
 By running the file 'segmentation_labeled.ipynb' we can create segments in the timeseries data by detecting changepoints.For this I use the ruptures library. This library detects shifts in a signal and creates a so-called changepoint.
 
@@ -78,6 +78,7 @@ Our aim is that the segments are more or less visibly correlated to the provided
 
 The original timeseries data has now been split into segments. They all contain 14 signals which we want to label in clusters. 
 
+**Labeled data**
 
 Now we need to apply the methodd on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
 
@@ -91,7 +92,8 @@ In this image of the first frame we plotted 6 signals and two calculated signals
 
 *(The alpha and beta values are extra calculated measurements that were also provided by the client. We ignore the alpha-beta signal.)*
 
-**B. Feature extraction**
+#### **B. Feature extraction**
+
 By using tsfresh we will extract the features of all signals in each frame that was segmented from the unlabeled data.
  
 The total number of signals is 14. Using all signals approach and seems exhaustive, but the intention is to later figure out a more fine-tuned method.
@@ -100,7 +102,7 @@ Now we can start the feature extraction on each of the frames that were found wi
 
 By running the file `feature_extraction_RUN.ipynb' we extract the features from all the available timeseries data in one go.
 
-4. **Clustering**
+### 4. **Clustering**
 A clustering model is applied to a selection of the features from each of the frames
 
 With the notebook file `clustering_features.ipynb` we can visualize our newly found clusters.
@@ -113,7 +115,7 @@ The project resulted in a n-dimensional model, with a pre-determined number of 1
 
 Then we can validate our model by printing frames which are identified to be in a cluster
 
-5. **Validation**
+### 5. **Validation**
 > We plot the newly found clusters to validate similarities in the patterns.
  
 ## Limitations
