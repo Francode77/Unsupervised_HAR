@@ -48,13 +48,14 @@ We plot the x,y,z axes of the sensor data. For each timeseries we have data for 
 2. **Preprocessing**
 Each timeseries is downsampled, normalised and processed with HAAR filter.
 
-3. **Segmentation**
+3. **Processing**
+This step involves splitting the available timeseries data (12 signals) into segments with the ruptures library, and then extracting features of these signals with tsfresh.
+
+**A. Segmentation**
+
 We detect signal shifts (changepoints) from the preprocessed signals and split our timeseries into frames. For this I use the ruptures library.
 
 A demonstration of this can be seen in the notebook file ´segmentation.ipynb´ 
-
-**A. Fine tuning the sensitivity**
-
 To determine the sensitivity of the changepoint detection on the unlabeled data, we empirically apply different settings on the signals from the labeled data.
 
 For example, we split the data according to signal shifts in the x axis of accelerometer 1 with treshold 1. We do the same for the y axis of accelerometer 2 with a different treshold, and so on...
@@ -73,7 +74,7 @@ The resulting frames have now 14 signals which we need to identify in clusters. 
 ![image](/assets/segmentation_12_signals.png)
 
 
-3. **Feature extraction**
+**B. Feature extraction**
 By using tsfresh we can extract the features of each frame that is detected in the unlabeled data.
 
 Ideally we would do this process on unlabeled and labeled data, but within the scope of this project, we will now detect the changepoints for segmentation on the unlabeled data by using tresholds (sensitivity) values as were obtained from the preprocessing phase.
