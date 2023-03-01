@@ -1,10 +1,10 @@
-# Unsupervised learning : Clustering of human activity movements
+# Unsupervised learning : Human activity recognition
 
 This project aims to recognise patterns in timeseries data from a pair of movement sensors on the body. 
 
-We start with timeseries data from pairs of gyrscope and accelerometer sensors. By detecting signal shifts in the data we can obtain recogniseable patterns in segmented timeseries data. Then we use the TSFResh automated feature extraction library on each of these segments to cluster these patterns.
+We start with timeseries data from pairs of gyrscope and accelerometer sensors. By detecting signal shifts in the data we can obtain recogniseable patterns in segmented timeseries data. Then we use the TSFResh automated feature extraction library on all signals in each of these segments to cluster these patterns.
 
-For training the data we use a seperate dataset with labeled movements. The challenge here is that these movements have little correlation with the real-world which was extracted in the real world usage.
+For data segmentation we use a seperate dataset with labeled movements. The challenge here is that these movements have only a small similarity to the unlabeled data, which was obtained from live usage.
 
 The model is completely trained on unlabeled data, making this an unsupervised learning project
 
@@ -13,32 +13,36 @@ The model is completely trained on unlabeled data, making this an unsupervised l
 This step by step guide will get you to have the development environment up and running.
 
 1. Create and activate your virtual environment
-2. Install necessary libraries from ´requirements.txt´
+2. Install necessary libraries from `requirements.txt`
  
 ## Usage
 
-The project is split into different Jupyter notebook files.<br>
+The project is split into different folders and Jupyter notebook files.<br>
 <br>
-**/analysis**<br>
+
+### /analysis
+
 To analyse data: /analysis/read_signal.ipynb<br>
 <br>
-**/processing**<br>
-<br>
+
+### /processing
+
 For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals.<br>
 <br>
 1. To fine tune tresholds for changepoint detection we use the provided labeled data<br>
-´segmentation_labeled.ipynb´<br>
+`segmentation_labeled.ipynb`<br>
 <br>
 2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): <br>
-´feature_extraction.ipynb´<br>
+`feature_extraction.ipynb`<br>
 <br>
 3. To process all files in a folder : <br>
-´feature_extraction_RUN.ipynb´<br>
+`feature_extraction_RUN.ipynb`<br>
 <br>
-**/clustering**<br>
-<br>
+
+### /clustering
+
 4. To run the clustering and visual validation :<br>
-´clustering_features.ipynb´<br>
+`clustering_features.ipynb`<br>
  
 ## Method
 
@@ -55,7 +59,7 @@ This step involves splitting the available timeseries data (12 signals) into seg
 
 We detect signal shifts (changepoints) from the preprocessed signals and split our timeseries into frames. For this I use the ruptures library.
 
-A demonstration of this can be seen in the notebook file ´segmentation.ipynb´ 
+A demonstration of this can be seen in the notebook file `segmentation.ipynb` 
 To determine the sensitivity of the changepoint detection on the unlabeled data, we empirically apply different settings on the signals from the labeled data.
 
 For example, we split the data according to signal shifts in the x axis of accelerometer 1 with treshold 1. We do the same for the y axis of accelerometer 2 with a different treshold, and so on...
@@ -89,12 +93,12 @@ In this image of the first frame we can see 6 signals and the two calculated sig
 
 Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a big vector with 783 x 14 dimensions. As mentioned, this process could be greatly improved by selecting only the more relevant features. This would ofcourse reduce the dimensionality and the processing time.
 
-By running the file ´feature_extraction_RUN.ipynb' we can now extract features from all the available timeseries in one go.
+By running the file `feature_extraction_RUN.ipynb' we can now extract features from all the available timeseries in one go.
 
 4. **Clustering**
 A clustering model is applied to a selection of the features from each of the frames
 
-With the notebook file ´clustering_features.ipynb´ we can visualize our newly found clusters.
+With the notebook file `clustering_features.ipynb` we can visualize our newly found clusters.
 
 The script loads all the extracted features for all found frames and tries to determine 10 clusters from this data.
 
