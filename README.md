@@ -16,26 +16,27 @@ This step by step guide will get you to have the development environment up and 
 ## Usage
 
 The project is split into different folders and Jupyter notebook files.<br>
-<br>
 
 ### /analysis
 
-To analyse data: /analysis/read_signal.ipynb<br>
+`read_signal.ipynb` is used to plot the timeseries.<br>
 <br>
 
 ### /processing
 
-For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals.<br>
-<br>
-1. To fine tune tresholds for changepoint detection we use the provided labeled data<br>
-`segmentation_labeled.ipynb`<br>
-<br>
-2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): <br>
-`feature_extraction.ipynb`<br>
-<br>
-3. To process all files in a folder : <br>
-`feature_extraction_RUN.ipynb`<br>
-<br>
+For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals.
+
+1. To fine tune tresholds for changepoint detection we use the provided labeled data
+
+`segmentation_labeled.ipynb`
+
+2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): 
+
+`feature_extraction.ipynb`
+
+3. To process all files in a folder : 
+
+`feature_extraction_RUN.ipynb` 
 
 ### /clustering
 
