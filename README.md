@@ -20,7 +20,6 @@ The project is split into different folders and Jupyter notebook files.<br>
 ### /analysis
 
 `read_signal.ipynb` is used to plot the timeseries.<br>
-<br>
 
 ### /processing
 
@@ -34,7 +33,6 @@ For splitting the timeseries into different segments we use a seperate dataset w
 
 3. To process all files in a folder : <br>
 `feature_extraction_RUN.ipynb` <br>
-<br>
 
 ### /clustering
 
