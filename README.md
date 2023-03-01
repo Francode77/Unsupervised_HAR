@@ -26,18 +26,15 @@ The project is split into different folders and Jupyter notebook files.<br>
 
 For splitting the timeseries into different segments we use a seperate dataset with labeled movements. We use the ruptures library to detect changepoints (signal shifts) on each of the signals.
 
-1. To fine tune tresholds for changepoint detection we use the provided labeled data
-
+1. To fine tune tresholds for changepoint detection we use the provided labeled data:<br>
 `segmentation_labeled.ipynb`
 
-2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): 
-
+2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): <br>
 `feature_extraction.ipynb`
 
-3. To process all files in a folder : 
-
-`feature_extraction_RUN.ipynb` 
-
+3. To process all files in a folder : <br>
+`feature_extraction_RUN.ipynb` <br>
+<br>
 ### /clustering
 
 4. To run the clustering and visual validation :<br>
