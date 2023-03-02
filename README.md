@@ -104,7 +104,9 @@ Now we can start the feature extraction on each of the frames that were found wi
 
 **Note** *Using all signals approach and seems exhaustive, but this is an MVP with the intention to fine-tune this approach if succesful. The method could be improved by selecting only the more relevant features. This would reduce the dimensionality and processing time and might improve the clustering results.*
 
-By running the file `feature_extraction_RUN.ipynb` we extract the features from all the available timeseries data in one go.
+#### Processing all files
+
+By running the file `feature_extraction_RUN.ipynb` we extract the features from all the available timeseries data in one go, as described above.
 
 ### 4. **Clustering**
 A clustering model is applied to a selection of the features from each of the frames
