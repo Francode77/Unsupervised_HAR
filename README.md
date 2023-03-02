@@ -98,9 +98,11 @@ In this image of the first frame we plotted 6 signals and two calculated signals
 
 By using tsfresh we will extract the features of all signals in each frame that was segmented from the unlabeled data.
  
-The total number of signals is 14. Using all signals approach and seems exhaustive, but the intention is to later figure out a more fine-tuned method.
+The total number of signals is 14. 
 
-Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a big vector with 783 (extracted features) for 14 (signals), which results in 783*14 dimensions per frame. As mentioned, this process could be greatly improved by selecting only the more relevant features. This would reduce the dimensionality and processing time and might improve .
+Now we can start the feature extraction on each of the frames that were found with the above method. The result is saved in a **big vector** with 783 (extracted features) for 14 (signals), which results in 783*14 = 10962 dimensions per frame. 
+
+**Note** *Using all signals approach and seems exhaustive, but this is an MVP with the intention to fine-tune this approach if succesful. The method could be improved by selecting only the more relevant features. This would reduce the dimensionality and processing time and might improve the clustering results.*
 
 By running the file `feature_extraction_RUN.ipynb` we extract the features from all the available timeseries data in one go.
 
