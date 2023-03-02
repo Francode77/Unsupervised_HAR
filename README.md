@@ -19,28 +19,30 @@ The project is split into different folders and Jupyter notebook files.<br>
 
 ### /analysis
 
-`read_signal.ipynb` is used to plot the timeseries.<br>
+1. For visual analysis `read_signal.ipynb` is used to plot the timeseries.<br>
 
 ### /processing
 
-1. To fine tune tresholds for changepoint detection we use the provided labeled data:<br>
+2. To fine tune tresholds for changepoint detection we use the provided labeled data:<br>
 `segmentation_labeled.ipynb`
 
-2. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): <br>
+3. To process one file (preprocessing, changepoint detection, segmentation, and feature extraction): <br>
 `feature_extraction.ipynb`
 
-3. To process all files in a folder : <br>
+4. To process all files in a folder : <br>
 `feature_extraction_RUN.ipynb` <br>
 
 ### /clustering
 
-4. To run the clustering and visual validation :<br>
+5. To run the clustering and visual validation :<br>
 `clustering_features.ipynb`<br>
  
 ## Method
 
 ### 1. **Analysis**
-We plot the x,y,z axes of the sensor data. For each timeseries we have data for 3 (axes) x2 (sensors) x 2 (devices) = 12 signals
+The analysis of data was handed over to our data-analysis team and does not fall within the scope of this project.
+
+We simply plot the x,y,z axes of the sensor data. For each timeseries we have data for 3 (axes) x2 (sensors) x 2 (devices) = 12 signals. 
 
 ### 2. **Preprocessing**
 Each timeseries is downsampled, normalised and processed with HAAR filter.
