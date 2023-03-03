@@ -88,7 +88,7 @@ Now we need to apply this method on our unlabeled data. A demonstration of this 
 
 The processing of the unlabeled data in the above image results in 9 frames
 
-![image](/assets/frame_unlabeled_1.png)
+![image](/assets/unlabeled_frame_1.png)
 
 In this image of the first frame we plotted 6 signals and two calculated signals. 
 
