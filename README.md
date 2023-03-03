@@ -84,7 +84,7 @@ The original timeseries data has now been split into a number of frames that mor
 
 Now we need to apply this method on our unlabeled data. A demonstration of this can be seen in the notebook file `segmentation.ipynb` which serves no other purpose.
 
-![image](/assets/unlabeled_segmenatation.png)
+![image](/assets/unlabeled_segmentation.png)
 
 The processing of the unlabeled data in the above image results in 9 frames
 
